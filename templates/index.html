@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ExplainX AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero-card">
+
+        <h1>ExplainX AI</h1>
+
+        <p class="subtitle">
+
+            Explainable Artificial Intelligence Dashboard
+
+        </p>
+
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <div class="alert">
+
+        {% for message in messages %}
+
+        <p>{{ message }}</p>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
+    <div class="card">
+
+        <h2>Upload Dataset</h2>
+
+        <form
+            action="{{ url_for('upload_dataset') }}"
+            method="POST"
+            enctype="multipart/form-data">
+
+            <input
+                type="file"
+                name="dataset"
+                accept=".csv"
+                required>
+
+            <br><br>
+
+            <button
+                type="submit"
+                class="btn">
+
+                Upload Dataset
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

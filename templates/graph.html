@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ExplainX AI Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero-card">
+
+        <h1>ExplainX AI Dashboard</h1>
+
+        <p class="subtitle">
+
+            Explainable Artificial Intelligence Results
+
+        </p>
+
+    </div>
+
+    <div class="metrics-grid">
+
+        {% for metric, value in metrics.items() %}
+
+        <div class="metric-card">
+
+            <h3>{{ metric }}</h3>
+
+            <h1>{{ value }}%</h1>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>Top 10 Important Features</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Feature</th>
+
+                    <th>Importance</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for feature in features %}
+
+                <tr>
+
+                    <td>{{ feature[0] }}</td>
+
+                    <td>{{ "%.4f"|format(feature[1]) }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Feature Importance</h2>
+
+        {{ feature_graph|safe }}
+
+    </div>
+
+    <div class="card">
+
+        <h2>Confusion Matrix</h2>
+
+        {{ confusion_graph|safe }}
+
+    </div>
+
+    <div class="card">
+
+        <h2>Class Distribution</h2>
+
+        {{ pie_graph|safe }}
+
+    </div>
+
+    <div class="card">
+
+        <h2>SHAP Summary Plot</h2>
+
+        <img
+            src="data:image/png;base64,{{ shap_summary }}"
+            class="plot-image"
+            alt="SHAP Summary Plot">
+
+    </div>
+
+    <div class="card">
+
+        <h2>SHAP Feature Importance</h2>
+
+        <img
+            src="data:image/png;base64,{{ shap_bar }}"
+            class="plot-image"
+            alt="SHAP Bar Plot">
+
+    </div>
+
+    <div class="card">
+
+        <h2>SHAP Waterfall Plot</h2>
+
+        <img
+            src="data:image/png;base64,{{ shap_waterfall }}"
+            class="plot-image"
+            alt="SHAP Waterfall Plot">
+
+    </div>
+
+    <div class="download-section">
+
+        <a href="{{ url_for('download_report') }}"
+           class="btn">
+
+            Download PDF Report
+
+        </a>
+
+    </div>
+
+    <div style="text-align:center;margin-top:25px;">
+
+        <a href="{{ url_for('home') }}"
+           class="btn">
+
+            Upload Another Dataset
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
